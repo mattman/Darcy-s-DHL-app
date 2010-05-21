@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
   layout 'application'
   
   def is_admin
-    session[:usertype] == "administrator"
+    session[:user].class == "Administrator"
   end
   
   def is_carrier
-    session[:usertype] == "carrier"
+    session[:user].class == "Carrier"
   end
   
 end
