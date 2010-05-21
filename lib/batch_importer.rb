@@ -20,9 +20,14 @@ class BatchImporter
   def self.import!(type, file)
     path = file.respond_to?(:path) ? file.path : file.to_s
     return false unless File.readable?(path)
-    instance = self.new(type, path)
-    instance.process!
-    true
+    begin
+      instance = self.new(type, path)
+      instance.process!
+      true
+    rescue Error => e
+      Rails.logger.debug "Exception: #{e.message}"
+      false
+    end
   end
 
   def initialize(type, path)
@@ -40,11 +45,12 @@ class BatchImporter
     end
   end
 
+  protected
+
   def import_row(row, with = m)
     m.call(row) if m.present? 
   rescue ActiveRecord::RecordNotFound, ActiveRecord::RecordInvalid => e
-    Rails.logger.warn "Unable to import row: #{e.message}"
-    #raise InvalidRow.new
+    raise InvalidRow.new("Unable to import row: #{e.message}")
   end
 
   def import_package(row)
