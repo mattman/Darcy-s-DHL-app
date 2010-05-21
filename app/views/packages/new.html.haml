@@ -1,0 +1,20 @@
+= form_for @package do |f|
+  = render :partial => "form", :locals => {:f => f}
+  
+  %fieldset
+    %legend Customer
+    %p
+      %label
+        First name
+        = text_field :customer, :first_name
+    %p
+      %label
+        Last name
+        = text_field :customer, :last_name
+        
+    %p
+      %label
+        Address
+        = text_field :customer, :address
+  
+  = f.submit "Create package"
