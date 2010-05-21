@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  description: MyString
+  serial_number: MyString
+  customer_id: 1
+  carrier_id: 1
+
+two:
+  description: MyString
+  serial_number: MyString
+  customer_id: 1
+  carrier_id: 1

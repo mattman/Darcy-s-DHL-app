@@ -1,0 +1,5 @@
+= form_for :package, :url => {:action => "search"}, :class => "pulse" do |f|
+  %label
+    Package Serial
+    = f.text_field :serial_number
+  = f.submit "Find my package"

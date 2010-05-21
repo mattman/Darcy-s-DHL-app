@@ -1,0 +1,21 @@
+- if !@package.empty?
+  - @package.each do |p|
+    %div.package
+      %span.serial
+        = p.serial_number
+      %span.descriptions  
+        = p.description
+      %div.progress
+        %ul
+          - p.intransit_notices.each do |notice|
+            %li
+              = notice.comment
+- else   
+  %p.error
+    Sorry, we couldn't find a package with that serial number. Perhaps you should contact your carrier.
+
+  = form_for Package.new, :package, :url => {:action => "search"} do |f|
+    %label
+      Package Serial
+      = f.text_field :serial_number
+    = f.submit "Find my package"

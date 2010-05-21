@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  package_id: 1
+  tag_sequence: 1
+  status: MyString
+  recorded_at: 2010-05-18 18:48:03
+  lat: 
+  lng: 
+  comment: MyString
+
+two:
+  package_id: 1
+  tag_sequence: 1
+  status: MyString
+  recorded_at: 2010-05-18 18:48:03
+  lat: 
+  lng: 
+  comment: MyString

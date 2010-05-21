@@ -1,0 +1,23 @@
+@-webkit-keyframes pulse
+  	0% {
+  		-webkit-box-shadow: 0 0 12px rgba(51,204,255,.2);
+  	}
+  	50% {
+  		-webkit-box-shadow: 0 0 12px rgba(51,204,255,.9);
+  	}
+  	100% {
+  		-webkit-box-shadow: 0 0 12px rgba(51,204,255,.2);
+  	}
+}
+
+@-webkit-keyframes pulse-error {
+	0% {
+		-webkit-box-shadow: 0 0 12px rgba(204,0,0,.1);
+	}
+	50% {
+		-webkit-box-shadow: 0 0 12px rgba(204,0,0,.5);
+	}
+	100% {
+		-webkit-box-shadow: 0 0 12px rgba(204,0,0,.1);
+	}
+}

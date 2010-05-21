@@ -1,0 +1,13 @@
+!!! 5
+%html{:lang => "en"}
+  %head
+    = stylesheet_link_tag 'whereru'
+    = csrf_meta_tag 
+    %link{:href => "/images/icon.png", :rel => "shortcut icon", :type => "image/png"}
+    
+  %body
+    %header
+      %img{:src => "/images/logo.jpg"}
+      %h1 Where R U
+    #content
+      = yield
