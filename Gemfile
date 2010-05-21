@@ -14,6 +14,8 @@ gem 'haml'
 # Deploy with Capistrano
 # gem 'capistrano'
 
+gem "fastercsv" if RUBY_VERSION < '1.9'
+
 group :development do
   gem "mongrel"
 end
