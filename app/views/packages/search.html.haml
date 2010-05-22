@@ -1,13 +1,12 @@
-- if !@package.empty?
-  - @package.each do |p|
+- if !@packages.empty?
+  - @packages.each do |p|
     %div.package
-      %span.serial
-        = p.serial_number
-      %span.descriptions  
-        = p.description
+      %span.serial= p.serial_number
+      %span.descriptions= p.description
       %div.progress
         - notices = p.delivered_notices | p.intransit_notices
         %ul
+<<<<<<< HEAD
           - notices.each do |notice|
             %li
               = notice.comment
@@ -20,3 +19,10 @@
       Package Serial
       = f.text_field :serial_number
     = f.submit "Find my package"
+=======
+          - p.intransit_notices.each do |notice|
+            %li= notice.comment
+- else
+  %p.error Sorry, we couldn't find a package with that serial number. Perhaps you should contact your carrier.
+  = render :partial => 'search'
+>>>>>>> Refactor search, customer model

@@ -6,4 +6,7 @@ class Package < ActiveRecord::Base
   belongs_to :customer
   belongs_to :carrier
 
+  scope :from_serial_number, lambda { |sn| where(:serial_number => sn) }
+  scope :with_notices, includes(:delivered_notices, :intransit_notices)
+
 end

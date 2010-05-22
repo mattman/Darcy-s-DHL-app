@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 %div#package-search
   = form_for :package, :url => {:action => "search"} do |f|
     %label
       Package Serial
       = f.text_field :serial_number
     = f.submit "Find my package"
+=======
+= render :partial => 'search'
+>>>>>>> Refactor search, customer model
