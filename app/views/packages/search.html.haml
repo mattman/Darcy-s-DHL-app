@@ -5,9 +5,13 @@
       %span.descriptions= p.description
       %div.progress
         - notices = p.delivered_notices | p.intransit_notices
-        %ul
-          - notices.each do |notice|
-            %li= notice.comment
+        - if !notices.empty?
+          %ul
+            - notices.each do |notice|
+              %li= notice.comment
+        - else
+          Your package hasn't gone anywhere yet!
+          
 - else
   %p.error Sorry, we couldn't find a package with that serial number. Perhaps you should contact your carrier.
   = render :partial => 'search'

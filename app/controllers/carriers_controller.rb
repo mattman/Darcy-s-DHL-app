@@ -7,9 +7,9 @@ class CarriersController < ApplicationController
     if params[:login]
       @user = Carrier.find_by_identifier(params[:identifier])
       if !@user.nil? && @user.password == params[:password]
-        session[:user] = @user
-        flash[:notice] = "Successfully logged in as administrator"
-        redirect_to 'admin/index'
+        session["user"] = @user
+        flash[:notice] = "Successfully logged in"
+        redirect_to '/'
       else
         flash[:notice] = "Could not find a user with those details"
         render :action => "login"
@@ -18,7 +18,7 @@ class CarriersController < ApplicationController
   end
   
   def logout
-    session[:user] = nil
+    session["user"] = nil
   end
   
   def new

@@ -11,4 +11,5 @@
       %img{:src => "/images/logo.jpg"}
       %h1 Where R U
     #content
+      =# raw flash_messages(:error, :alert, :notice)
       = yield

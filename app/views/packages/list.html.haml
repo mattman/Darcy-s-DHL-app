@@ -1,0 +1,12 @@
+%h2
+  All packages
+  - if @carrier.present?
+    being tracked by #{@carrier.name}
+  
+%table
+  - @packages.each do |p|
+    %tr
+      %td
+        = p.serial_number
+      %td
+        = p.description

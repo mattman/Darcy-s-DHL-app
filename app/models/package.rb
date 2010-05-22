@@ -8,5 +8,6 @@ class Package < ActiveRecord::Base
 
   scope :from_serial_number, lambda { |sn| where(:serial_number => sn) }
   scope :with_notices, includes(:delivered_notices, :intransit_notices)
-
+  scope :by_carrier, lambda { |carrier| where(:carrier_id => carrier.id) }
+  
 end
