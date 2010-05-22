@@ -6,3 +6,15 @@ class CustomerTest < ActiveSupport::TestCase
     assert true
   end
 end
+
+
+# == Schema Info
+#
+# Table name: customers
+#
+#  id         :integer(4)      not null, primary key
+#  address    :string(255)
+#  first_name :string(255)
+#  last_name  :string(255)
+#  created_at :datetime
+#  updated_at :datetime

@@ -3,8 +3,8 @@ class AdminController < ApplicationController
   before_filter :is_admin
   
   def login
-    if params[:login]
-      @user = Administrator.find_by_username(params[:username])
+    if request.post? 
+      @user = Administrator.authenticate!(params[:username], params[:password])
       if !@user.nil? && @user.password == params[:password]
         session[:user] = @user
         flash[:notice] = "Successfully logged in as administrator"

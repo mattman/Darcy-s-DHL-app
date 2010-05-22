@@ -4,31 +4,31 @@ class PackagesController < ApplicationController
 
   def index
     logger.debug session["user"].class
-    if is_carrier
-      @carrier = Carrier.find(session["user"])
-      @packages = Package.by_carrier(@carrier).all
+    if carrier?
+      @carrier = current_user
+      @packages = @carrier.packages.all
       render :action => "list"
-    elsif is_admin
+    elsif admin? 
       @packages = Package.all
       render :action => "list"
     else
       # display the search form for an end user
     end
   end
-  
+
   def search
     @packages = Package.from_serial_number(params[:serial_number]).with_notices.all
   end
-  
+
   def update
 
   end
-  
+
   def new
     @customer = Customer.new
     @package  = @customer.packages.build
   end
-  
+
   def create
     @package = @customer.packages.new(params[:package])
     if @package.save
@@ -45,5 +45,5 @@ class PackagesController < ApplicationController
   def prepare_customer
     @customer = Customer.from_name(params[:customer][:first_name], params[:customer][:last_name], params[:customer])
   end
-  
+
 end

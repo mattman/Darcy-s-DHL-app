@@ -9,7 +9,8 @@ module ApplicationHelper
      if content.empty?
        ""
      else
-       content_tag(:section, content.join, :id => "flash-messages").html_safe
+       content_tag :section, content.sum(ActiveSupport::SafeBuffer.new),
+                   :id => "flash-messages"
      end
    end
   

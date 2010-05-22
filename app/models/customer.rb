@@ -1,5 +1,13 @@
 class Customer < ActiveRecord::Base
 
+  validates_presence_of :address, :first_name, :last_name
+
+  validates_length_of :address,    :maximum => 100
+  validates_length_of :last_name,  :maximum => 20
+  validates_length_of :first_name, :maximum => 10
+
+  validates_length_of :first_name, :scope => :last_name
+
   attr_accessible :first_name, :last_name, :address
 
   scope :with_name, lambda { |f, l| where(:first_name => f, :last_name => l) }
@@ -20,3 +28,15 @@ class Customer < ActiveRecord::Base
   end
 
 end
+
+
+# == Schema Info
+#
+# Table name: customers
+#
+#  id         :integer(4)      not null, primary key
+#  address    :string(255)
+#  first_name :string(255)
+#  last_name  :string(255)
+#  created_at :datetime
+#  updated_at :datetime
