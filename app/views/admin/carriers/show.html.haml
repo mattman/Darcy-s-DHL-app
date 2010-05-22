@@ -1,0 +1,17 @@
+%h2.title== Viewing #{current_resource_name}
+
+= show_for resource do |r|
+
+  = r.attribute :name
+
+  = r.attribute :identifier
+
+  = r.attribute :address
+
+  = r.association :packages do
+    %ul
+      - resource.packages.each do |package|
+        %li
+          = link_to "#{package.serial_number} - #{package.description}", admin_package_path(package)
+          for
+          = link_to package.customer.to_s, admin_customer_path(package.customer)

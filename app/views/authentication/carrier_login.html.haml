@@ -1,10 +1,11 @@
 = form_tag '/carriers/login' do
   %p
     %label
-      Carrier Identifier
+      Carrier Identifier:
       = text_field_tag "identifier"
   %p
     %label
-      Password
+      Password:
       = password_field_tag "password"
   = submit_tag "Login", :name => "login"
+

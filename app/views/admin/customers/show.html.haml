@@ -1,0 +1,19 @@
+%h2.title== Viewing #{current_resource_name}
+
+= show_for resource do |r|
+
+  = r.attribute :first_name
+
+  = r.attribute :last_name
+
+  = r.attribute :address
+
+  = r.association :packages do
+    - resource.packages.each do |package|
+      - if package.can_view?(current_user)
+        %ul
+          %li
+            = link_to "#{package.serial_number} - #{package.description}", admin_package_path(package)
+            delivered by
+            = link_to package.carrier.name, admin_carrier_path(package.carrier)
+

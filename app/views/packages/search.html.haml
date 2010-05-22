@@ -1,17 +1,44 @@
-- if @packages.present?
-  - @packages.each do |p|
-    %div.package
-      %span.serial= p.serial_number
-      %span.descriptions= p.description
-      %div.progress
-        - notices = p.delivered_notices | p.intransit_notices
-        - if !notices.empty?
-          %ul
-            - notices.each do |notice|
-              %li= notice.comment
-        - else
-          Your package hasn't gone anywhere yet!
-          
-- else
-  %p.error Sorry, we couldn't find a package with that serial number. Perhaps you should contact your carrier.
-  = render :partial => 'search'
+- full_view = params[:full].to_i > 0
+
+%h2 Your Search Results 
+- if @packages.empty?
+  %p No Packages Found. Please search again.
+  #package-search= render :partial => 'search'
+
+- @packages.each do |package|
+  %table.package
+    %thead
+      %th Serial Number
+      %th Description
+      - if full_view
+        %th Notice Number
+      - if !package.delivered? || full_view
+        %th Location (Lat)
+        %th Location (Lng)
+      - else
+        %th Delivered
+    %tbody
+      - if !full_view 
+        %tr
+          %td= package.serial_number
+          %td= package.description
+          - if package.delivered?
+            %td=l package.delivery_notice.recorded_at
+          - else
+            %td= package.notices.last.try :lat
+            %td= package.notices.last.try :lng
+      - else
+        - package.notices.each_with_index do |notice, index|
+          %tr
+            - if index == 0
+              %td{:rowspan => package.notices.size}= package.serial_number
+              %td{:rowspan => package.notices.size}= package.description
+            %td= notice.tag_sequence
+            - if notice.delivered?
+              %td{:colspan => 2}=l notice.recorded_at
+            - else
+              %td= notice.lat
+              %td= notice.lng
+
+  - if !full_view 
+    %p= link_to "View Full History", search_packages_path(:serial_number => package.serial_number, :full => 1)

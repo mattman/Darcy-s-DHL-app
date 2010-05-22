@@ -1,0 +1,20 @@
+%h2.title== Viewing all #{current_resource_name.pluralize}
+
+- column_names = [:identifier, :name, :address] 
+
+= batch_upload_helper :carriers, "Choose batch upload CSV file for carriers:"
+
+%table
+  %thead
+    %tr
+      - column_names.each do |column|
+        %th= column.to_s.titleize
+      %th &nbsp;
+  %tbody
+    - collection.each do |r|
+      %tr{:class => cycle('odd', 'even')}
+        - column_names.each do |column|
+          %td=vwd r.try(column)
+        %td.actions= individual_resource_links2 r
+    = empty_row_for_collection column_names.size
+        

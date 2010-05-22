@@ -1,0 +1,12 @@
+---
+javascript_compressor: yui
+javascripts:
+  base:
+    - public/javascripts/vendor/jquery-1.4.2.js
+    - public/javascripts/vendor/jquery.rails-20100421.js
+  admin: []
+stylesheets:
+  base:
+    - public/stylesheets/whereru.css
+  admin:
+   - public/stylesheets/admin.css

@@ -1,6 +1,10 @@
 module AuthenticationHelpers
   extend ActiveSupport::Concern
 
+  included do
+    helper_method :current_user, :logged_in?
+  end
+
   module InstanceMethods
 
     def current_user

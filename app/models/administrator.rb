@@ -12,8 +12,7 @@ class Administrator < ActiveRecord::Base
   end
 
   def self.authenticate!(username, password)
-    record = find_by_username(username)
-    (record && record.password == password) ? record : nil
+    where(:username => username, :password => password).first 
   end
 
 end

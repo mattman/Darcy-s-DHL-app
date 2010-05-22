@@ -1,8 +1,15 @@
 class ApplicationController < ActionController::Base
-  #protect_from_forgery
   layout 'application'
 
   include AuthenticationHelpers
   include AuthorizationHelpers
+
+  protected
+
+  def invalid_permissions
+    flash[:error] = "I'm sorry, you don't have the correct permissions for that action"
+    redirect_to :root
+    return false
+  end
 
 end

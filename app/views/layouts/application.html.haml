@@ -1,7 +1,7 @@
 !!! 5
 %html{:lang => "en"}
   %head
-    = stylesheet_link_tag 'whereru'
+    = include_stylesheets :base 
     = csrf_meta_tag 
     %title Where R U
     %link{:href => "/images/icon.png", :rel => "shortcut icon", :type => "image/png"}
@@ -9,7 +9,8 @@
   %body
     %header
       %img{:src => "/images/logo.jpg"}
-      %h1 Where R U
+      %h1= link_to "Where R U", :root
+      = render :partial => 'shared/navigation'
     #content
       =raw flash_messages(:error, :alert, :notice)
       = yield

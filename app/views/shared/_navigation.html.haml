@@ -1,0 +1,12 @@
+%ul#navigation
+  = ml "Home", :root
+  - if logged_in?
+    - if admin?
+      = ml "Carriers", :admin_carriers
+    = ml "Customers", :admin_customers
+    = ml "Packages", :admin_packages
+    = ml "Logout", :logout
+  - else
+    = ml "Login as Carrier", :carrier_login
+    = ml "Login as Admin",   :admin_login
+

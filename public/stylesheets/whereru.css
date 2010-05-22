@@ -1,45 +1,89 @@
 @font-face {
   font-family: "League Gothic";
-  src: url("/stylesheets/League Gothic.otf"); }
+  src: url("/stylesheets/League Gothic.otf");
+}
 
+/* line 5, ../../app/stylesheets/whereru.sass */
 body {
-  background-color: #2B4161;
-  color: #FFF;
+  background-color: #2b4161;
+  color: white;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 300;
-  font-size: 100%; }
+  font-size: 100%;
+}
 
+/* line 13, ../../app/stylesheets/whereru.sass */
 h1 {
   font-family: "League Gothic";
   font-size: 300%;
-  font-margin-top: 0px; }
+  font-margin-top: 0px;
+}
 
+/* line 19, ../../app/stylesheets/whereru.sass */
 header img {
   float: left;
-  margin-top: -20px; }
+  margin-top: -20px;
+}
 
+/* line 23, ../../app/stylesheets/whereru.sass */
 header, footer, section, article, blockquote {
-  display: block; }
+  display: block;
+}
 
+/* line 26, ../../app/stylesheets/whereru.sass */
 #content {
   clear: both;
-  font-size: 0.9em; }
+  font-size: 0.9em;
+}
 
+/* line 31, ../../app/stylesheets/whereru.sass */
 #package-search form input[type="text"] {
   font-family: Helvetica, sans-serif;
   font-size: 1.2em;
-  font-color: #666;
+  font-color: #666666;
   border: none;
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 12%, from(#999), to(#fff));
-  background-image: -moz-linear-gradient(0% 12% 90deg,#fff, #999);
-  background-color: #fff;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 12%, from(#999999), to(white));
+  background-image: -moz-linear-gradient(0% 12% 90deg, white, #999999);
+  background-color: white;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  border-radius: 4px; }
+  border-radius: 4px;
+}
+
+/* line 44, ../../app/stylesheets/whereru.sass */
+a {
+  text-decoration: underline;
+  color: white;
+  font-weight: bold;
+}
+/* line 48, ../../app/stylesheets/whereru.sass */
+a:visited {
+  color: #eeeeee;
+}
+/* line 50, ../../app/stylesheets/whereru.sass */
+a:hover {
+  color: red;
+}
+
+/* line 53, ../../app/stylesheets/whereru.sass */
+ul#navigation {
+  list-style: none;
+  margin: 0.5em 0 1.5em;
+  padding: 0;
+  font-weight: 0.9em;
+}
+/* line 58, ../../app/stylesheets/whereru.sass */
+ul#navigation li {
+  display: inline;
+  margin: 0;
+  padding: 0.5em 0.5em 0;
+}
 
 @import(./webkit.css);
+/* line 65, ../../app/stylesheets/whereru.sass */
 #package-search form input[type="text"]:focus {
   border: none;
   background-image: none;
-  background: #fff;
-  -webkit-animation: pulse 1.5s infinite ease-in-out; }
+  background: white;
+  -webkit-animation: pulse 1.5s infinite ease-in-out;
+}

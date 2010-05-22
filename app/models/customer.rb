@@ -6,7 +6,7 @@ class Customer < ActiveRecord::Base
   validates_length_of :last_name,  :maximum => 20
   validates_length_of :first_name, :maximum => 10
 
-  validates_length_of :first_name, :scope => :last_name
+  validates_uniqueness_of :first_name, :scope => :last_name
 
   attr_accessible :first_name, :last_name, :address
 
@@ -25,6 +25,26 @@ class Customer < ActiveRecord::Base
   def self.from_name(first_name, last_name, options = {})
     scope = with_name(first_name, last_name)
     scope.first || create!(options.merge(:first_name => first_name, :last_name => last_name))
+  end
+
+  def to_s
+    "#{first_name} #{last_name}".strip
+  end
+  
+  def self.can_create?(user)
+    user
+  end
+  
+  def can_view?(user)
+    user
+  end
+
+  def can_edit?(user)
+    user && user.admin?
+  end
+
+  def can_destroy?(user)
+    user && user.admin?
   end
 
 end

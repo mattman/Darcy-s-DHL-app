@@ -1,22 +1,13 @@
 class IntransitNotice < ActiveRecord::Base
 
-  validates_presence_of  :tag_sequence, :lat, :lng, :status
+  validates_presence_of  :tag_sequence, :lat, :lng, :status, :package
   validates_inclusion_of :status, :in => %w(T D)
 
   scope :ordered, 'tag_sequence ASC'
 
-  def make_delivered!
-    delivered_notice = DeliveredNotice.new({
-      :package_id   => package_id,
-      :comment      => comment,
-      :lat          => lat,
-      :lng          => lng,
-      :status       => status,
-      :tag_sequence => tag_sequence
-    })
-    destroy if delivered_notice.save
-    delivered_notice
-  end
+  after_create :check_delivery_status
+
+  belongs_to :package
 
   def in_transit?
     status == 'T'
@@ -24,6 +15,11 @@ class IntransitNotice < ActiveRecord::Base
 
   def at_final_destination?
     status == 'D'
+  end
+  alias delivered? at_final_destination?
+
+  def check_delivery_status
+    package.deliver! if delivered? || package.delivered?
   end
 
 end

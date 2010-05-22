@@ -12,6 +12,7 @@ class DeliveredNotice < ActiveRecord::Base
   def at_final_destination?
     status == 'D'
   end
+  alias delivered? at_final_destination?
 
 end
 

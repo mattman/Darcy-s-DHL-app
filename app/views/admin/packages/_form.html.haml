@@ -1,0 +1,10 @@
+= form.inputs :name => "User Details" do
+  = form.input :customer, :as => :select, :collection => Customer.all.map { |c| [c.to_s, c.id] }
+  - if admin?
+    = form.input :carrier, :as => :select
+
+= form.inputs :name => "Package Details" do
+
+  = form.input :serial_number
+
+  = form.input :description

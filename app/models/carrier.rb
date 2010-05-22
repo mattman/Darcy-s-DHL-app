@@ -3,19 +3,18 @@ class Carrier < ActiveRecord::Base
   has_many :packages
   has_many :customers, :through => :packages
 
-  validates_presence_of   :name, :identifier, :address
+  validates_presence_of   :name, :identifier, :address, :password
   validates_length_of     :address,    :maximum => 100
   validates_length_of     :name,       :maximum => 50
   validates_length_of     :identifier, :maximum => 4
   validates_uniqueness_of :identifier, :name
 
   def self.authenticate!(username, password)
-    carrier = find_by_identifier(username.to_s.uppercase)
-    (carrier && carrier.password == password) ? carrier : nil
+    where(:identifier => username.to_s.upcase, :password => password).first
   end
 
   def self.from_serial_number(serial_number)
-    if serial_number =~ /^([A-Z]{1,4}/i
+    if serial_number =~ /^([A-Z]{1,4})/i
       find_by_identifier $1.to_s.upcase
     else
       nil
@@ -32,10 +31,26 @@ class Carrier < ActiveRecord::Base
 
   def identifier=(value)
     if value.blank?
-      write_attribute :value, nil
+      write_attribute :identifier, nil
     else
-      write_attribute value.to_s.uppercase
+      write_attribute :identifier, value.to_s.upcase
     end
+  end
+
+  def self.can_create?(user)
+    user && user.admin?
+  end
+  
+  def can_view?(user)
+    user && (user.admin? || user == self)
+  end
+
+  def can_edit?(user)
+    user && user.admin?
+  end
+
+  def can_destroy?(user)
+    user && user.admin?
   end
 
 end

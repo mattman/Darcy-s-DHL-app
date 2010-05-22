@@ -1,0 +1,36 @@
+%h2.title== Viewing #{current_resource_name}
+
+= show_for resource do |r|
+
+  = r.attribute :serial_number
+
+  = r.attribute :description
+
+  = r.association :carrier do
+    = link_to resource.carrier.name, admin_carrier_path(resource.carrier)
+
+  = r.association :customer do
+    = link_to resource.customer.to_s, admin_customer_path(resource.customer)
+
+  = r.attribute :status do
+    = resource.delivered? ? "Delivered" : "In Transit"
+
+%h3 History
+
+%table
+  %thead
+    %th # 
+    %th Comment
+    %th Status
+    %th Location (Lat)
+    %th Location (Lng)
+    %th Recorded At
+  %tbody
+    - resource.notices.each do |notice|
+      %tr
+        %td= notice.tag_sequence
+        %td= notice.comment
+        %td= notice.delivered? ? "At Final Destination" : "In Transit"
+        %td= notice.lat
+        %td= notice.lng
+        %td=l notice.recorded_at

@@ -1,0 +1,22 @@
+%h2.title== Viewing all #{current_resource_name.pluralize}
+
+- column_names = [:serial_number, :description, :carrier, :customer] 
+
+= batch_upload_helper :packages,  "Choose a packages CSV file to upload: "
+= batch_upload_helper :locations, "Choose a locations CSV file to upload: "
+
+%table
+  %thead
+    %tr
+      - column_names.each do |column|
+        %th= column.to_s.titleize
+      %th &nbsp;
+  %tbody
+    - collection.each do |r|
+      %tr{:class => cycle('odd', 'even')}
+        %td= r.serial_number
+        %td= r.description
+        %td= link_to r.carrier.name,  admin_carrier_path(r.carrier)
+        %td= link_to r.customer.to_s, admin_customer_path(r.customer)
+        %td.actions= individual_resource_links2 r
+    = empty_row_for_collection column_names.size

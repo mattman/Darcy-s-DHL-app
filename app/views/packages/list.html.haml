@@ -1,12 +1,23 @@
-%h2
-  All packages
-  - if @carrier.present?
-    being tracked by #{@carrier.name}
-  
-%table
-  - @packages.each do |p|
-    %tr
-      %td
-        = p.serial_number
-      %td
-        = p.description
+%h2 Your Search Results 
+
+- @packages.each do |package|
+  %table.package
+    %thead
+      %th Serial Number
+      %th Description
+      - if package.delivered?
+        %th Delivered
+      - else
+        %th Location (Lat)
+        %th Location (Lng)
+    %tbody
+      - if params[:full].to_i == 0
+        %td= package.serial_number
+        %td= package.description
+        - if package.delivered?
+          %td=l package.delivery_notice.recorded_at
+        - else
+          %td= package.notices.last.lat
+          %td= package.notices.last.lng
+      - else
+        
