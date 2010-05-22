@@ -3,25 +3,27 @@
 bootstrap_app() {
 
   # Bootstraps the rails process
+  frozen_gems="./vendor/rubygems"
   gem_directory_path="./.gem-bootstrap"
 
   [[ "$1" = 'install' ]] && rm -rf "$gem_directory_path"
 
   mkdir -p "$gem_directory_path/bin"
-
-  export PATH="$gem_directory_path/bin:$PATH"
+  
+  export PATH="$frozen_gems/bin:$gem_directory_path/bin:$PATH"
   export GEM_HOME="$gem_directory_path"
   export GEM_PATH="$gem_directory_path"
   export BUNDLE_PATH="$GEM_HOME"
+  export RUBYOPT="-I \"$frozen_gems/lib\" $RUBYOPT"
 
   if [[ "$1" = "install" ]]; then
     echo "Installing Bundler and gems..."
-    gem install bundler --no-ri --no-rdoc
-    bundle install --disable-shared-gems "$GEM_HOME"
+    $frozen_gems/bin/gem install bundler --no-ri --no-rdoc
+    $gem_directory_path/bin/bundle install --disable-shared-gems "$GEM_HOME"
   elif [[ -n "$1" ]]; then
     echo "Running program: $1 $@"
     name="$1"; shift
-    exec "$name" "$@"
+    $gem_directory_path/bin/bundle exec "$name" "$@"
   fi
 
 }
