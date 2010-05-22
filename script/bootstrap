@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+bootstrap_app() {
+
+# Bootstraps the rails process
+gem_directory_path="./.gem-bootstrap"
+
+[[ "$1" = 'install' ]] && rm -rf "$gem_directory_path"
+
+mkdir -p "$gem_directory_path/bin"
+
+export PATH="$gem_directory_path/bin:$PATH"
+export GEM_HOME="$gem_directory_path"
+export GEM_PATH="$gem_directory_path"
+export BUNDLE_PATH="$GEM_HOME"
+
+if [[ "$1" = "install" ]]; then
+  gem install bundler --no-ri --no-rdoc
+  bundle install --disable-shared-gems "$GEM_HOME"
+fi
+
+}
