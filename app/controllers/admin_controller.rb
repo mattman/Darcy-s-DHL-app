@@ -20,4 +20,8 @@ class AdminController < ApplicationController
     session[:user] = nil
   end  
   
+  def index
+    
+  end
+  
 end

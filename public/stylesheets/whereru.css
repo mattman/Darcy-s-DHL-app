@@ -6,6 +6,7 @@ body {
   background-color: #2B4161;
   color: #FFF;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 300;
   font-size: 100%; }
 
 h1 {
@@ -24,8 +25,7 @@ header, footer, section, article, blockquote {
   clear: both;
   font-size: 0.9em; }
 
-@import(./webkit.css);
-form input[type="text"] {
+#package-search form input[type="text"] {
   font-family: Helvetica, sans-serif;
   font-size: 1.2em;
   font-color: #666;
@@ -36,7 +36,9 @@ form input[type="text"] {
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px; }
-form input[type="text"]:focus {
+
+@import(./webkit.css);
+#package-search form input[type="text"]:focus {
   border: none;
   background-image: none;
   background: #fff;

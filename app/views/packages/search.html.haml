@@ -6,8 +6,9 @@
       %span.descriptions  
         = p.description
       %div.progress
+        - notices = p.delivered_notices | p.intransit_notices
         %ul
-          - p.intransit_notices.each do |notice|
+          - notices.each do |notice|
             %li
               = notice.comment
 - else   

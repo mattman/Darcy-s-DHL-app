@@ -20,6 +20,8 @@ group :development do
   gem "mongrel"
 end
 
+gem "bhm-google-maps"
+
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri', '1.4.1'

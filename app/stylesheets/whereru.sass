@@ -7,6 +7,7 @@ body
   :color #FFF
   :font
     :family "Helvetica Neue", Helvetica, Arial, sans-serif
+    :weight 300
     :size 100%
 
 h1
@@ -27,24 +28,23 @@ header, footer, section, article, blockquote
   :font
     :size 0.9em
 
+#package-search form input[type="text"]
+  :font
+    :family Helvetica, sans-serif
+    :size 1.2em
+    :color #666
+  :border none
+  :background-image -webkit-gradient(linear, 0% 0%, 0% 12%, from(#999), to(#fff))
+  :background-image -moz-linear-gradient(0% 12% 90deg,#fff, #999)
+  :background-color #fff
+  :-webkit-border-radius 4px
+  :-moz-border-radius 4px
+  :border-radius 4px
+
 @import(./webkit.css)
 
-form
-  input[type="text"]
-    :font
-      :family Helvetica, sans-serif
-      :size 1.2em
-      :color #666
-    :border none
-    :background-image -webkit-gradient(linear, 0% 0%, 0% 12%, from(#999), to(#fff))
-    :background-image -moz-linear-gradient(0% 12% 90deg,#fff, #999)
-    :background-color #fff
-    :-webkit-border-radius 4px
-    :-moz-border-radius 4px
-    :border-radius 4px
-
-  input[type="text"]:focus
-    :border none
-    :background-image none
-    :background #fff
-    :-webkit-animation pulse 1.5s infinite ease-in-out
+#package-search form input[type="text"]:focus
+  :border none
+  :background-image none
+  :background #fff
+  :-webkit-animation pulse 1.5s infinite ease-in-out
