@@ -15,11 +15,15 @@ bootstrap_app() {
   export BUNDLE_PATH="$GEM_HOME"
 
   if [[ "$1" = "install" ]]; then
+    echo "Installing Bundler and gems..."
     gem install bundler --no-ri --no-rdoc
     bundle install --disable-shared-gems "$GEM_HOME"
   elif [[ -n "$1" ]]; then
-    name="$1"
+    echo "Running program: $1 $@"
+    name="$1"; shift
     exec "$name" "$@"
   fi
 
 }
+
+echo "$0" | grep -q "sh" || bootstrap_app $@
