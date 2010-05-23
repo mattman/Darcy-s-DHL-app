@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
+# export HTTP_PROXY="http://name:password@proxy.uwa.edu.au:8080"
+
 bootstrap_app() {
 
   # Bootstraps the rails process
-  frozen_gems="./vendor/rubygems"
+  gem_directory_path=".bootstrapped-gems"
 
   [[ "$1" = 'install' ]] && rm -rf "$gem_directory_path"
 
