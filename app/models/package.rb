@@ -61,13 +61,11 @@ class Package < ActiveRecord::Base
 
   def self.filtered_scope(params)
     scope = self
-    if params[:serial_numbers_file]
-      contents = params[:serial_numbers_file].read rescue ""
-      ids = contents.split.map { |i| i.strip.to_i }.compact.uniq
-      scope = scope.where("serial_number IN (?)", ids)
-    elsif params[:serial_number].present?
-      scope = scope.where(:serial_number => params[:serial_number])
+    p params[:serial_number].present?
+    if params[:serial_number].present?
+      scope = scope.where("serial_number IN (?)", params[:serial_number].to_s.split(/[\s\,]+/).uniq)
     end
+    scope = scope.includes(:carrier, :customer)
     scope
   end
 

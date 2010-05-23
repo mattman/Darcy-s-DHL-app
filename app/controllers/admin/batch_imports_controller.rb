@@ -16,6 +16,12 @@ class Admin::BatchImportsController < AdminController
     attempt_import! :customer, params[:customers_file], admin_customers_path
   end
 
+  def batch_filter
+    contents = params[:batch_filter_file].read rescue ""
+    identifiers = contents.split(/[\s\,]+/).join(",")
+    redirect_to admin_packages_path(:serial_number => identifiers)
+  end
+
   protected
 
   def attempt_import!(name, file, url)

@@ -11,7 +11,8 @@ class Admin::PackagesController < Admin::BaseController
   end
 
   def end_of_association_chain
-    admin? ? Package : current_user.packages
+    scope = admin? ? Package : current_user.packages
+    scope.filtered_scope(params)
   end
 
   def check_read_permissions

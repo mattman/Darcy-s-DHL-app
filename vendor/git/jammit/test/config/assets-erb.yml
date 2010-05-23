@@ -1,0 +1,12 @@
+embed_assets: <%= RAILS_ENV == 'test' %>
+
+javascripts:
+  test:
+    - fixtures/src/*.js
+  templates:
+    - fixtures/src/*.jst
+
+stylesheets:
+  test:
+    - fixtures/src/*.css
+

@@ -10,6 +10,8 @@ Whereru2::Application.routes.draw do |map|
     post 'import/locations', :to => 'batch_imports#locations', :as => :import_locations
     post 'import/customers', :to => 'batch_imports#customers', :as => :import_customers
 
+    post 'packages/batch-filter', :to => 'batch_imports#batch_filter', :as => :import_batch_filter
+
   end
 
   match 'carriers/login'  => "authentication#carrier_login", :as => :carrier_login

@@ -1,0 +1,1645 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta name="Content-Type" content="text/html; charset=UTF-8" />
+<title>Module: Jammit</title>
+<link rel="stylesheet" href="css/style.css" type="text/css" media="screen" charset="utf-8" />
+<link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  relpath = '';
+  if (relpath != '') relpath += '/';
+</script>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (J)</a> &raquo; 
+    
+    
+    <span class="title">Jammit</span>
+  
+</div>
+
+      <div id="search">
+  <a id="class_list_link" href="#">Namespace List</a>
+  <a id="method_list_link" href="#">Method List</a>
+  <a id ="file_list_link" href="#">File List</a>
+</div>
+
+      <div class="clear"></div>
+    </div>
+    
+    <iframe id="search_frame"></iframe>
+    
+    <div id="content"><h1>Module: Jammit 
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/jammit.rb<span class="defines">,<br />
+  lib/jammit/routes.rb,<br /> lib/jammit/helper.rb,<br /> lib/jammit/packager.rb,<br /> lib/jammit/controller.rb,<br /> lib/jammit/compressor.rb,<br /> lib/jammit/command_line.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    <p><code>Jammit</code> is the central namespace for all Jammit classes, and provides access
+to all of the configuration options.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+   
+    
+      <strong class="modules">Modules:</strong> <a href="Jammit/Helper.html" title="Helper">Helper</a>, <a href="Jammit/Routes.html" title="Routes">Routes</a>
+    
+   
+    
+      <strong class="classes">Classes:</strong> <a href="Jammit/CommandLine.html" title="CommandLine">CommandLine</a>, <a href="Jammit/Compressor.html" title="Compressor">Compressor</a>, <a href="Jammit/ConfigurationNotFound.html" title="ConfigurationNotFound">ConfigurationNotFound</a>, <a href="Jammit/Controller.html" title="Controller">Controller</a>, <a href="Jammit/OutputNotWritable.html" title="OutputNotWritable">OutputNotWritable</a>, <a href="Jammit/PackageNotFound.html" title="PackageNotFound">PackageNotFound</a>, <a href="Jammit/Packager.html" title="Packager">Packager</a>
+    
+  
+</p>
+
+  <h2>Constant Summary</h2>
+  
+    <dl class="constants">
+      
+        <dt id="VERSION-constant ">VERSION =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='string val'>&quot;0.4.4&quot;</span>
+</pre></dd>
+      
+        <dt id="ROOT-constant ">ROOT =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='dirname identifier id'>dirname</span><span class='lparen token'>(</span><span class='__FILE__ __file__ kw'>__FILE__</span><span class='rparen token'>)</span> <span class='plus op'>+</span> <span class='string val'>'/..'</span><span class='rparen token'>)</span>
+</pre></dd>
+      
+        <dt id="ASSET_ROOT-constant ">ASSET_ROOT =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='File constant id'>File</span><span class='dot token'>.</span><span class='expand_path identifier id'>expand_path</span><span class='lparen token'>(</span><span class='defined? defined kw'>defined?</span><span class='lparen token'>(</span><span class='Rails constant id'>Rails</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='Rails constant id'>Rails</span><span class='dot token'>.</span><span class='root identifier id'>root</span> <span class='colon op'>:</span> <span class='string val'>&quot;.&quot;</span><span class='rparen token'>)</span> <span class='unless unless_mod kw'>unless</span> <span class='defined? defined kw'>defined?</span><span class='lparen token'>(</span><span class='ASSET_ROOT constant id'>ASSET_ROOT</span><span class='rparen token'>)</span>
+</pre></dd>
+      
+        <dt id="PUBLIC_ROOT-constant ">PUBLIC_ROOT =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='defined? defined kw'>defined?</span><span class='lparen token'>(</span><span class='Rails constant id'>Rails</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='Rails constant id'>Rails</span><span class='dot token'>.</span><span class='public_path identifier id'>public_path</span> <span class='colon op'>:</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='ASSET_ROOT constant id'>ASSET_ROOT</span><span class='comma token'>,</span> <span class='string val'>'public'</span><span class='rparen token'>)</span>
+</pre></dd>
+      
+        <dt id="DEFAULT_CONFIG_PATH-constant ">DEFAULT_CONFIG_PATH =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='ASSET_ROOT constant id'>ASSET_ROOT</span><span class='comma token'>,</span> <span class='string val'>'config'</span><span class='comma token'>,</span> <span class='string val'>'assets.yml'</span><span class='rparen token'>)</span>
+</pre></dd>
+      
+        <dt id="DEFAULT_PACKAGE_PATH-constant ">DEFAULT_PACKAGE_PATH =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='string val'>&quot;assets&quot;</span>
+</pre></dd>
+      
+        <dt id="DEFAULT_JST_SCRIPT-constant ">DEFAULT_JST_SCRIPT =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='File constant id'>File</span><span class='dot token'>.</span><span class='join identifier id'>join</span><span class='lparen token'>(</span><span class='ROOT constant id'>ROOT</span><span class='comma token'>,</span> <span class='string val'>'lib/jammit/jst.js'</span><span class='rparen token'>)</span>
+</pre></dd>
+      
+        <dt id="DEFAULT_JST_COMPILER-constant ">DEFAULT_JST_COMPILER =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='string val'>&quot;template&quot;</span>
+</pre></dd>
+      
+        <dt id="DEFAULT_JST_NAMESPACE-constant ">DEFAULT_JST_NAMESPACE =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='string val'>&quot;window.JST&quot;</span>
+</pre></dd>
+      
+        <dt id="AVAILABLE_COMPRESSORS-constant ">AVAILABLE_COMPRESSORS =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='lbrack token'>[</span><span class='symbol val'>:yui</span><span class='comma token'>,</span> <span class='symbol val'>:closure</span><span class='rbrack token'>]</span>
+</pre></dd>
+      
+        <dt id="DEFAULT_COMPRESSOR-constant ">DEFAULT_COMPRESSOR =
+            <span class="summary_desc"></span>
+        </dt>
+        <dd><pre class="code"><span class='symbol val'>:yui</span>
+</pre></dd>
+      
+    </dl>
+  
+
+
+  <h2>Attribute Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#compress_assets-class_method" title="compress_assets (class method)">+ (Object) <strong>compress_assets</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>compress_assets</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#compressor_options-class_method" title="compressor_options (class method)">+ (Object) <strong>compressor_options</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>compressor_options</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#configuration-class_method" title="configuration (class method)">+ (Object) <strong>configuration</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>configuration</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#css_compressor_options-class_method" title="css_compressor_options (class method)">+ (Object) <strong>css_compressor_options</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>css_compressor_options</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#embed_assets-class_method" title="embed_assets (class method)">+ (Object) <strong>embed_assets</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>embed_assets</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#gzip_assets-class_method" title="gzip_assets (class method)">+ (Object) <strong>gzip_assets</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>gzip_assets</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#include_jst_script-class_method" title="include_jst_script (class method)">+ (Object) <strong>include_jst_script</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>include_jst_script</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#javascript_compressor-class_method" title="javascript_compressor (class method)">+ (Object) <strong>javascript_compressor</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>javascript_compressor</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#mhtml_enabled-class_method" title="mhtml_enabled (class method)">+ (Object) <strong>mhtml_enabled</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>mhtml_enabled</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#package_assets-class_method" title="package_assets (class method)">+ (Object) <strong>package_assets</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>package_assets</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#package_path-class_method" title="package_path (class method)">+ (Object) <strong>package_path</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>package_path</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#template_function-class_method" title="template_function (class method)">+ (Object) <strong>template_function</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>template_function</ins>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#template_namespace-class_method" title="template_namespace (class method)">+ (Object) <strong>template_namespace</strong> </a>
+  
+  </span>
+  
+    <span class="note title readonly">readonly</span>
+    
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Returns the value of attribute <ins>template_namespace</ins>.</span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <h2>Method Summary</h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#asset_url-class_method" title="asset_url (class method)">+ (Object) <strong>asset_url</strong>(package, extension, suffix = nil, mtime = nil) </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Generates the server-absolute <span class="caps">URL</span> to an asset package.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#filename-class_method" title="filename (class method)">+ (Object) <strong>filename</strong>(package, extension, suffix = nil) </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Generate the base filename for a version of a given package.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#load_configuration-class_method" title="load_configuration (class method)">+ (Object) <strong>load_configuration</strong>(config_path) </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Load the complete asset configuration from the specified <code>config_path</code>.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#packager-class_method" title="packager (class method)">+ (Object) <strong>packager</strong> </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Keep a global (thread-local) reference to a <code>Jammit::Packager</code>, to avoid
+recomputing asset lists unnecessarily.</span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature"><a href="#reload%21-class_method" title="reload! (class method)">+ (Object) <strong>reload!</strong> </a>
+  
+  </span>
+  
+  
+  
+  
+
+  
+    <span class="summary_desc">Force a reload by resetting the Packager and reloading the configuration.</span>
+  
+</li>
+
+    
+      <li class="private ">
+  <span class="summary_signature"><a href="#check_java_version-class_method" title="check_java_version (class method)">+ (Object) <strong>check_java_version</strong> </a>
+  
+  </span>
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc">The <span class="caps">YUI</span> Compressor requires Java &gt; 1.4, and Closure requires Java &gt; 1.6.</span>
+  
+</li>
+
+    
+      <li class="private ">
+  <span class="summary_signature"><a href="#disable_compression-class_method" title="disable_compression (class method)">+ (Object) <strong>disable_compression</strong> </a>
+  
+  </span>
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc">If we don&#8217;t have a working Java VM, then disable asset compression and
+complain loudly.</span>
+  
+</li>
+
+    
+      <li class="private ">
+  <span class="summary_signature"><a href="#set_javascript_compressor-class_method" title="set_javascript_compressor (class method)">+ (Object) <strong>set_javascript_compressor</strong>(value) </a>
+  
+  </span>
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc">Ensure that the JavaScript compressor is a valid choice.</span>
+  
+</li>
+
+    
+      <li class="private ">
+  <span class="summary_signature"><a href="#set_package_assets-class_method" title="set_package_assets (class method)">+ (Object) <strong>set_package_assets</strong>(value) </a>
+  
+  </span>
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc">Turn asset packaging on or off, depending on configuration and environment.</span>
+  
+</li>
+
+    
+      <li class="private ">
+  <span class="summary_signature"><a href="#set_template_function-class_method" title="set_template_function (class method)">+ (Object) <strong>set_template_function</strong>(value) </a>
+  
+  </span>
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc">Assign the <span class="caps">JST</span> template function, unless explicitly turned off.</span>
+  
+</li>
+
+    
+      <li class="private ">
+  <span class="summary_signature"><a href="#set_template_namespace-class_method" title="set_template_namespace (class method)">+ (Object) <strong>set_template_namespace</strong>(value) </a>
+  
+  </span>
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc">Set the root JS object in which to stash all compiled <span class="caps">JST</span>.</span>
+  
+</li>
+
+    
+      <li class="private ">
+  <span class="summary_signature"><a href="#warn-class_method" title="warn (class method)">+ (Object) <strong>warn</strong>(message) </a>
+  
+  </span>
+  
+  <span class="note title private">private</span>
+  
+  
+
+  
+    <span class="summary_desc"></span>
+  
+</li>
+
+    
+  </ul>
+
+
+  <div id="attr_details">
+    <h2>Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <span id="compress_assets-class_method"></span>
+      <div class="method_details first">
+  <p class="signature first" id="compress_assets-class_method">
+  
+    + (<tt>Object</tt>) <strong>compress_assets</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>compress_assets</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='compress_assets identifier id'>compress_assets</span>
+  <span class='@compress_assets ivar id'>@compress_assets</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="compressor_options-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="compressor_options-class_method">
+  
+    + (<tt>Object</tt>) <strong>compressor_options</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>compressor_options</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='compressor_options identifier id'>compressor_options</span>
+  <span class='@compressor_options ivar id'>@compressor_options</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="configuration-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="configuration-class_method">
+  
+    + (<tt>Object</tt>) <strong>configuration</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>configuration</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='configuration identifier id'>configuration</span>
+  <span class='@configuration ivar id'>@configuration</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="css_compressor_options-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="css_compressor_options-class_method">
+  
+    + (<tt>Object</tt>) <strong>css_compressor_options</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>css_compressor_options</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='css_compressor_options identifier id'>css_compressor_options</span>
+  <span class='@css_compressor_options ivar id'>@css_compressor_options</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="embed_assets-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="embed_assets-class_method">
+  
+    + (<tt>Object</tt>) <strong>embed_assets</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>embed_assets</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='embed_assets identifier id'>embed_assets</span>
+  <span class='@embed_assets ivar id'>@embed_assets</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="gzip_assets-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="gzip_assets-class_method">
+  
+    + (<tt>Object</tt>) <strong>gzip_assets</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>gzip_assets</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='gzip_assets identifier id'>gzip_assets</span>
+  <span class='@gzip_assets ivar id'>@gzip_assets</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="include_jst_script-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="include_jst_script-class_method">
+  
+    + (<tt>Object</tt>) <strong>include_jst_script</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>include_jst_script</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='include_jst_script identifier id'>include_jst_script</span>
+  <span class='@include_jst_script ivar id'>@include_jst_script</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="javascript_compressor-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="javascript_compressor-class_method">
+  
+    + (<tt>Object</tt>) <strong>javascript_compressor</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>javascript_compressor</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='javascript_compressor identifier id'>javascript_compressor</span>
+  <span class='@javascript_compressor ivar id'>@javascript_compressor</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="mhtml_enabled-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="mhtml_enabled-class_method">
+  
+    + (<tt>Object</tt>) <strong>mhtml_enabled</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>mhtml_enabled</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='mhtml_enabled identifier id'>mhtml_enabled</span>
+  <span class='@mhtml_enabled ivar id'>@mhtml_enabled</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="package_assets-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="package_assets-class_method">
+  
+    + (<tt>Object</tt>) <strong>package_assets</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>package_assets</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='package_assets identifier id'>package_assets</span>
+  <span class='@package_assets ivar id'>@package_assets</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="package_path-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="package_path-class_method">
+  
+    + (<tt>Object</tt>) <strong>package_path</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>package_path</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='package_path identifier id'>package_path</span>
+  <span class='@package_path ivar id'>@package_path</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="template_function-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="template_function-class_method">
+  
+    + (<tt>Object</tt>) <strong>template_function</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>template_function</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='template_function identifier id'>template_function</span>
+  <span class='@template_function ivar id'>@template_function</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="template_namespace-class_method"></span>
+      <div class="method_details ">
+  <p class="signature " id="template_namespace-class_method">
+  
+    + (<tt>Object</tt>) <strong>template_namespace</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Returns the value of attribute <ins>template_namespace</ins></p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+42
+43
+44</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 42</span>
+
+<span class='def def kw'>def</span> <span class='template_namespace identifier id'>template_namespace</span>
+  <span class='@template_namespace ivar id'>@template_namespace</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="method_details">
+    <h2>Method Details</h2>
+    
+      <div class="method_details first">
+  <p class="signature first" id="asset_url-class_method">
+  
+    + (<tt>Object</tt>) <strong>asset_url</strong>(package, extension, suffix = nil, mtime = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Generates the server-absolute <span class="caps">URL</span> to an asset package.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96
+97</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 94</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='asset_url identifier id'>asset_url</span><span class='lparen token'>(</span><span class='package identifier id'>package</span><span class='comma token'>,</span> <span class='extension identifier id'>extension</span><span class='comma token'>,</span> <span class='suffix identifier id'>suffix</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span><span class='comma token'>,</span> <span class='mtime identifier id'>mtime</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='timestamp identifier id'>timestamp</span> <span class='assign token'>=</span> <span class='mtime identifier id'>mtime</span> <span class='integer val'>? </span><span class='dstring node'>&quot;?#{mtime.to_i}&quot;</span> <span class='colon op'>:</span> <span class='string val'>''</span>
+  <span class='dstring node'>&quot;/#{package_path}/#{filename(package, extension, suffix)}#{timestamp}&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="filename-class_method">
+  
+    + (<tt>Object</tt>) <strong>filename</strong>(package, extension, suffix = nil) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Generate the base filename for a version of a given package.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+88
+89
+90
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 88</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='filename identifier id'>filename</span><span class='lparen token'>(</span><span class='package identifier id'>package</span><span class='comma token'>,</span> <span class='extension identifier id'>extension</span><span class='comma token'>,</span> <span class='suffix identifier id'>suffix</span><span class='assign token'>=</span><span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='suffix_part identifier id'>suffix_part</span>  <span class='assign token'>=</span> <span class='suffix identifier id'>suffix</span> <span class='integer val'>? </span><span class='dstring node'>&quot;-#{suffix}&quot;</span> <span class='colon op'>:</span> <span class='string val'>''</span>
+  <span class='dstring node'>&quot;#{package}#{suffix_part}.#{extension}&quot;</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="load_configuration-class_method">
+  
+    + (<tt>Object</tt>) <strong>load_configuration</strong>(config_path) 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Load the complete asset configuration from the specified <code>config_path</code>.</p>
+
+  </div>
+</div>
+<div class="tags">
+  <h3>Raises:</h3>
+<ul class="raise">
+  
+    <li>
+      
+        <span class='type'>(<tt><a href="Jammit/ConfigurationNotFound.html" title="ConfigurationNotFound">ConfigurationNotFound</a></tt>)</span>
+      
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 53</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='load_configuration identifier id'>load_configuration</span><span class='lparen token'>(</span><span class='config_path identifier id'>config_path</span><span class='rparen token'>)</span>
+  <span class='exists identifier id'>exists</span> <span class='assign token'>=</span> <span class='config_path identifier id'>config_path</span> <span class='andop op'>&amp;&amp;</span> <span class='File constant id'>File</span><span class='dot token'>.</span><span class='exists? fid id'>exists?</span><span class='lparen token'>(</span><span class='config_path identifier id'>config_path</span><span class='rparen token'>)</span>
+  <span class='raise identifier id'>raise</span> <span class='ConfigurationNotFound constant id'>ConfigurationNotFound</span><span class='comma token'>,</span> <span class='dstring node'>&quot;could not find the \&quot;#{config_path}\&quot; configuration file&quot;</span> <span class='unless unless_mod kw'>unless</span> <span class='exists identifier id'>exists</span>
+  <span class='conf identifier id'>conf</span> <span class='assign token'>=</span> <span class='YAML constant id'>YAML</span><span class='dot token'>.</span><span class='load identifier id'>load</span><span class='lparen token'>(</span><span class='ERB constant id'>ERB</span><span class='dot token'>.</span><span class='new identifier id'>new</span><span class='lparen token'>(</span><span class='File constant id'>File</span><span class='dot token'>.</span><span class='read identifier id'>read</span><span class='lparen token'>(</span><span class='config_path identifier id'>config_path</span><span class='rparen token'>)</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='result identifier id'>result</span><span class='rparen token'>)</span>
+  <span class='@config_path ivar id'>@config_path</span>            <span class='assign token'>=</span> <span class='config_path identifier id'>config_path</span>
+  <span class='@configuration ivar id'>@configuration</span>          <span class='assign token'>=</span> <span class='conf identifier id'>conf</span> <span class='assign token'>=</span> <span class='conf identifier id'>conf</span><span class='dot token'>.</span><span class='symbolize_keys identifier id'>symbolize_keys</span>
+  <span class='@package_path ivar id'>@package_path</span>           <span class='assign token'>=</span> <span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:package_path</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='DEFAULT_PACKAGE_PATH constant id'>DEFAULT_PACKAGE_PATH</span>
+  <span class='@embed_assets ivar id'>@embed_assets</span>           <span class='assign token'>=</span> <span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:embed_assets</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:embed_images</span><span class='rbrack token'>]</span>
+  <span class='@compress_assets ivar id'>@compress_assets</span>        <span class='assign token'>=</span> <span class='notop op'>!</span><span class='lparen token'>(</span><span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:compress_assets</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='false false kw'>false</span><span class='rparen token'>)</span>
+  <span class='@gzip_assets ivar id'>@gzip_assets</span>            <span class='assign token'>=</span> <span class='notop op'>!</span><span class='lparen token'>(</span><span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:gzip_assets</span><span class='rbrack token'>]</span> <span class='eq op'>==</span> <span class='false false kw'>false</span><span class='rparen token'>)</span>
+  <span class='@mhtml_enabled ivar id'>@mhtml_enabled</span>          <span class='assign token'>=</span> <span class='@embed_assets ivar id'>@embed_assets</span> <span class='andop op'>&amp;&amp;</span> <span class='@embed_assets ivar id'>@embed_assets</span> <span class='neq op'>!=</span> <span class='string val'>&quot;datauri&quot;</span>
+  <span class='@compressor_options ivar id'>@compressor_options</span>     <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:compressor_options</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='symbolize_keys identifier id'>symbolize_keys</span>
+  <span class='@css_compressor_options ivar id'>@css_compressor_options</span> <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:css_compressor_options</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='lbrace token'>{</span><span class='rbrace token'>}</span><span class='rparen token'>)</span><span class='dot token'>.</span><span class='symbolize_keys identifier id'>symbolize_keys</span>
+  <span class='set_javascript_compressor identifier id'>set_javascript_compressor</span><span class='lparen token'>(</span><span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:javascript_compressor</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='set_package_assets identifier id'>set_package_assets</span><span class='lparen token'>(</span><span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:package_assets</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='set_template_function identifier id'>set_template_function</span><span class='lparen token'>(</span><span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:template_function</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='set_template_namespace identifier id'>set_template_namespace</span><span class='lparen token'>(</span><span class='conf identifier id'>conf</span><span class='lbrack token'>[</span><span class='symbol val'>:template_namespace</span><span class='rbrack token'>]</span><span class='rparen token'>)</span>
+  <span class='check_java_version identifier id'>check_java_version</span>
+  <span class='self self kw'>self</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="packager-class_method">
+  
+    + (<tt>Object</tt>) <strong>packager</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Keep a global (thread-local) reference to a <code>Jammit::Packager</code>, to avoid
+recomputing asset lists unnecessarily.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 83</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='packager identifier id'>packager</span>
+  <span class='Thread constant id'>Thread</span><span class='dot token'>.</span><span class='current identifier id'>current</span><span class='lbrack token'>[</span><span class='symbol val'>:jammit_packager</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='Packager constant id'>Packager</span><span class='dot token'>.</span><span class='new identifier id'>new</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="reload!-class_method">
+  
+    + (<tt>Object</tt>) <strong>reload!</strong> 
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Force a reload by resetting the Packager and reloading the configuration.
+In development, this will be called as a before_filter before every request.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+76
+77
+78
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 76</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='reload! fid id'>reload!</span>
+  <span class='Thread constant id'>Thread</span><span class='dot token'>.</span><span class='current identifier id'>current</span><span class='lbrack token'>[</span><span class='symbol val'>:jammit_packager</span><span class='rbrack token'>]</span> <span class='assign token'>=</span> <span class='nil nil kw'>nil</span>
+  <span class='load_configuration identifier id'>load_configuration</span><span class='lparen token'>(</span><span class='@config_path ivar id'>@config_path</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="check_java_version-class_method">
+  
+    + (<tt>Object</tt>) <strong>check_java_version</strong>  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>The <span class="caps">YUI</span> Compressor requires Java &gt; 1.4, and Closure requires Java &gt; 1.6.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+128
+129
+130
+131
+132
+133
+134
+135</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 128</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='check_java_version identifier id'>check_java_version</span>
+  <span class='java identifier id'>java</span> <span class='assign token'>=</span> <span class='@compressor_options ivar id'>@compressor_options</span><span class='lbrack token'>[</span><span class='symbol val'>:java</span><span class='rbrack token'>]</span> <span class='orop op'>||</span> <span class='string val'>'java'</span>
+  <span class='@css_compressor_options ivar id'>@css_compressor_options</span><span class='lbrack token'>[</span><span class='symbol val'>:java</span><span class='rbrack token'>]</span> <span class='opasgn op'>||=</span> <span class='java identifier id'>java</span> <span class='if if_mod kw'>if</span> <span class='@compressor_options ivar id'>@compressor_options</span><span class='lbrack token'>[</span><span class='symbol val'>:java</span><span class='rbrack token'>]</span>
+  <span class='version identifier id'>version</span> <span class='assign token'>=</span> <span class='lparen token'>(</span><span class='dxstring node'>`#{java} -version 2&gt;&amp;1`</span><span class='rparen token'>)</span><span class='lbrack token'>[</span><span class='regexp val'>/\d+\.\d+/</span><span class='rbrack token'>]</span>
+  <span class='disable_compression identifier id'>disable_compression</span> <span class='if if_mod kw'>if</span> <span class='notop op'>!</span><span class='version identifier id'>version</span> <span class='orop op'>||</span>
+    <span class='lparen token'>(</span><span class='@javascript_compressor ivar id'>@javascript_compressor</span> <span class='eq op'>==</span> <span class='symbol val'>:closure</span> <span class='andop op'>&amp;&amp;</span> <span class='version identifier id'>version</span> <span class='lt op'>&lt;</span> <span class='string val'>'1.6'</span><span class='rparen token'>)</span> <span class='orop op'>||</span>
+    <span class='lparen token'>(</span><span class='@javascript_compressor ivar id'>@javascript_compressor</span> <span class='eq op'>==</span> <span class='symbol val'>:yui</span> <span class='andop op'>&amp;&amp;</span> <span class='version identifier id'>version</span> <span class='lt op'>&lt;</span> <span class='string val'>'1.4'</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="disable_compression-class_method">
+  
+    + (<tt>Object</tt>) <strong>disable_compression</strong>  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>If we don&#8217;t have a working Java VM, then disable asset compression and
+complain loudly.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+139
+140
+141
+142</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 139</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='disable_compression identifier id'>disable_compression</span>
+  <span class='@compress_assets ivar id'>@compress_assets</span> <span class='assign token'>=</span> <span class='false false kw'>false</span>
+  <span class='warn identifier id'>warn</span><span class='lparen token'>(</span><span class='string val'>&quot;Asset compression disabled -- Java unavailable.&quot;</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_javascript_compressor-class_method">
+  
+    + (<tt>Object</tt>) <strong>set_javascript_compressor</strong>(value)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Ensure that the JavaScript compressor is a valid choice.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 103</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='set_javascript_compressor identifier id'>set_javascript_compressor</span><span class='lparen token'>(</span><span class='value identifier id'>value</span><span class='rparen token'>)</span>
+  <span class='value identifier id'>value</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span> <span class='andop op'>&amp;&amp;</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='to_sym identifier id'>to_sym</span>
+  <span class='@javascript_compressor ivar id'>@javascript_compressor</span> <span class='assign token'>=</span> <span class='AVAILABLE_COMPRESSORS constant id'>AVAILABLE_COMPRESSORS</span><span class='dot token'>.</span><span class='include? fid id'>include?</span><span class='lparen token'>(</span><span class='value identifier id'>value</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='value identifier id'>value</span> <span class='colon op'>:</span> <span class='DEFAULT_COMPRESSOR constant id'>DEFAULT_COMPRESSOR</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_package_assets-class_method">
+  
+    + (<tt>Object</tt>) <strong>set_package_assets</strong>(value)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Turn asset packaging on or off, depending on configuration and environment.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+109
+110
+111
+112
+113</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 109</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='set_package_assets identifier id'>set_package_assets</span><span class='lparen token'>(</span><span class='value identifier id'>value</span><span class='rparen token'>)</span>
+  <span class='package_env identifier id'>package_env</span>     <span class='assign token'>=</span> <span class='notop op'>!</span><span class='defined? defined kw'>defined?</span><span class='lparen token'>(</span><span class='Rails constant id'>Rails</span><span class='rparen token'>)</span> <span class='orop op'>||</span> <span class='notop op'>!</span><span class='Rails constant id'>Rails</span><span class='dot token'>.</span><span class='env identifier id'>env</span><span class='dot token'>.</span><span class='development? fid id'>development?</span>
+  <span class='@package_assets ivar id'>@package_assets</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span> <span class='eq op'>==</span> <span class='true true kw'>true</span> <span class='orop op'>||</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='integer val'>? </span><span class='package_env identifier id'>package_env</span> <span class='colon op'>:</span>
+                    <span class='value identifier id'>value</span> <span class='eq op'>==</span> <span class='string val'>'always'</span>           <span class='question op'>?</span> <span class='true true kw'>true</span> <span class='colon op'>:</span> <span class='false false kw'>false</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_template_function-class_method">
+  
+    + (<tt>Object</tt>) <strong>set_template_function</strong>(value)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Assign the <span class="caps">JST</span> template function, unless explicitly turned off.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+116
+117
+118
+119
+120</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 116</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='set_template_function identifier id'>set_template_function</span><span class='lparen token'>(</span><span class='value identifier id'>value</span><span class='rparen token'>)</span>
+  <span class='@template_function ivar id'>@template_function</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span> <span class='eq op'>==</span> <span class='true true kw'>true</span> <span class='orop op'>||</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='integer val'>? </span><span class='DEFAULT_JST_COMPILER constant id'>DEFAULT_JST_COMPILER</span> <span class='colon op'>:</span>
+                       <span class='value identifier id'>value</span> <span class='eq op'>==</span> <span class='false false kw'>false</span>              <span class='question op'>?</span> <span class='string val'>''</span> <span class='colon op'>:</span> <span class='value identifier id'>value</span>
+  <span class='@include_jst_script ivar id'>@include_jst_script</span> <span class='assign token'>=</span> <span class='@template_function ivar id'>@template_function</span> <span class='eq op'>==</span> <span class='DEFAULT_JST_COMPILER constant id'>DEFAULT_JST_COMPILER</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="set_template_namespace-class_method">
+  
+    + (<tt>Object</tt>) <strong>set_template_namespace</strong>(value)  <span class="extras">(private)</span>
+  
+
+  
+</p><div class="docstring">
+  <div class="discussion">
+    <p>Set the root JS object in which to stash all compiled <span class="caps">JST</span>.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+123
+124
+125</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 123</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='set_template_namespace identifier id'>set_template_namespace</span><span class='lparen token'>(</span><span class='value identifier id'>value</span><span class='rparen token'>)</span>
+  <span class='@template_namespace ivar id'>@template_namespace</span> <span class='assign token'>=</span> <span class='value identifier id'>value</span> <span class='eq op'>==</span> <span class='true true kw'>true</span> <span class='orop op'>||</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='nil? fid id'>nil?</span> <span class='integer val'>? </span><span class='DEFAULT_JST_NAMESPACE constant id'>DEFAULT_JST_NAMESPACE</span> <span class='colon op'>:</span> <span class='value identifier id'>value</span><span class='dot token'>.</span><span class='to_s identifier id'>to_s</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <p class="signature " id="warn-class_method">
+  
+    + (<tt>Object</tt>) <strong>warn</strong>(message)  <span class="extras">(private)</span>
+  
+
+  
+</p><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+144
+145
+146
+147
+148
+149</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/jammit.rb', line 144</span>
+
+<span class='def def kw'>def</span> <span class='self self kw'>self</span><span class='dot token'>.</span><span class='warn identifier id'>warn</span><span class='lparen token'>(</span><span class='message identifier id'>message</span><span class='rparen token'>)</span>
+  <span class='message identifier id'>message</span> <span class='assign token'>=</span> <span class='dstring node'>&quot;Jammit Warning: #{message}&quot;</span>
+  <span class='@logger ivar id'>@logger</span> <span class='opasgn op'>||=</span> <span class='lparen token'>(</span><span class='defined? defined kw'>defined?</span><span class='lparen token'>(</span><span class='Rails constant id'>Rails</span><span class='rparen token'>)</span> <span class='andop op'>&amp;&amp;</span> <span class='Rails constant id'>Rails</span><span class='dot token'>.</span><span class='logger identifier id'>logger</span> <span class='integer val'>? </span><span class='Rails constant id'>Rails</span><span class='dot token'>.</span><span class='logger identifier id'>logger</span> <span class='colon op'>:</span>
+               <span class='defined? defined kw'>defined?</span><span class='lparen token'>(</span><span class='RAILS_DEFAULT_LOGGER constant id'>RAILS_DEFAULT_LOGGER</span><span class='rparen token'>)</span> <span class='question op'>?</span> <span class='RAILS_DEFAULT_LOGGER constant id'>RAILS_DEFAULT_LOGGER</span> <span class='colon op'>:</span> <span class='nil nil kw'>nil</span><span class='rparen token'>)</span>
+  <span class='@logger ivar id'>@logger</span> <span class='question op'>?</span> <span class='@logger ivar id'>@logger</span><span class='dot token'>.</span><span class='warn identifier id'>warn</span><span class='lparen token'>(</span><span class='message identifier id'>message</span><span class='rparen token'>)</span> <span class='colon op'>:</span> <span class='STDERR constant id'>STDERR</span><span class='dot token'>.</span><span class='puts identifier id'>puts</span><span class='lparen token'>(</span><span class='message identifier id'>message</span><span class='rparen token'>)</span>
+<span class='end end kw'>end</span>
+</pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+    
+    <div id="footer">
+  Generated on Sat Feb  6 10:51:35 2010 by 
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool">yard</a>
+  0.4.0 (ruby-1.8.7).
+</div>
+
+  </body>
+</html>

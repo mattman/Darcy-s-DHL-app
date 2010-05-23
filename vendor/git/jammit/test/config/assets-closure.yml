@@ -1,0 +1,15 @@
+javascript_compressor: closure
+compressor_options:
+  compilation_level: ADVANCED_OPTIMIZATIONS
+embed_assets: on
+
+javascripts:
+  test:
+    - fixtures/src/*.js
+  templates:
+    - fixtures/src/*.jst
+
+stylesheets:
+  test:
+    - fixtures/src/*.css
+

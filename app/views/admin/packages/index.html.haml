@@ -2,9 +2,22 @@
 
 - column_names = [:serial_number, :description, :carrier, :customer] 
 
+%h3 Batch Import
+
 = batch_upload_helper :packages,  "Choose a packages CSV file to upload: "
 = batch_upload_helper :locations, "Choose a locations CSV file to upload: "
 
+%h3 Batch Filter
+
+= batch_upload_helper :batch_filter, "Filter from serial numbers in: "
+
+= form_tag admin_packages_path, :method => :get, :class => 'importer' do
+  %label{:for => "serial_number"}
+    Show those with the serial number:
+    = text_field_tag :serial_number
+  = submit_tag "Filter", :name => nil
+
+%h3 Results
 %table
   %thead
     %tr
