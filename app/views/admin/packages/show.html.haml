@@ -15,7 +15,9 @@
   = r.attribute :status do
     = resource.delivered? ? "Delivered" : "In Transit"
 
-%h3 History
+%h3
+  History
+  = link_to "(Update Status)", update_status_admin_package_path(resource)
 
 %table
   %thead

@@ -2,7 +2,12 @@ Whereru2::Application.routes.draw do |map|
   
   namespace :admin do
     resources :carriers
-    resources :packages
+    resources :packages do
+      member do
+        post :update_status
+        get  :update_status
+      end
+    end
     resources :customers
 
     post 'import/packages',  :to => 'batch_imports#packages',  :as => :import_packages

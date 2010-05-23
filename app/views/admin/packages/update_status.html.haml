@@ -1,0 +1,12 @@
+= semantic_form_for @notice, :url => update_status_admin_package_path(resource) do |f|
+
+  = f.inputs :name => "Package Status" do
+    = f.input :tag_sequence
+    = f.input :lat
+    = f.input :lng
+    = f.input :status, :as => :select, :collection => [['In Transit', 'T'], ['At Final Destination', 'D']]
+    = f.input :comment, :as => :text, :input_html => {:rows => 3}
+    = f.input :recorded_at, :include_blank => true
+
+  = f.buttons do
+    = f.commit_button "Update Status"

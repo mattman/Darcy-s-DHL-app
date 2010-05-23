@@ -1,6 +1,6 @@
 class IntransitNotice < ActiveRecord::Base
 
-  validates_presence_of  :tag_sequence, :lat, :lng, :status, :package
+  validates_presence_of  :tag_sequence, :lat, :lng, :status, :package, :recorded_at
   validates_inclusion_of :status, :in => %w(T D)
 
   scope :ordered, 'tag_sequence ASC'

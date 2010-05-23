@@ -5,6 +5,14 @@ class Admin::PackagesController < Admin::BaseController
 
   before_filter :check_read_permissions, :only => [:show]
 
+  def update_status
+    @notice = resource.intransit_notices.build(params[:intransit_notice])
+    if request.post? && @notice.save
+      flash[:notice] = "Package status updated"
+      redirect_to admin_package_path(resource)
+    end
+  end
+
   protected
   def collection
     get_collection_ivar || set_collection_ivar(end_of_association_chain.all)
